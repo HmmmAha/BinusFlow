@@ -12,5 +12,6 @@ export type Column = {
   tasks: Task[];
 };
 
-
 export type TaskStatus = "todo" | "doing" | "done";
+
+export type Pages = "dashboard" | "config";

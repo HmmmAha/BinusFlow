@@ -1,7 +1,22 @@
 import { useState } from "react";
+import type { Pages } from "./types";
 
-export default function Sidebar() {
+export default function Sidebar({
+  page,
+  setPage
+}: {
+  page: Pages;
+  setPage: (p: Pages) => void;
+}) {
   const [collapsed, setCollapsed] = useState(false);
+
+  const itemBaseStyle: React.CSSProperties = {
+    padding: "12px",
+    cursor: "pointer",
+    borderRadius: "6px",
+    marginBottom: "8px",
+    transition: "background 0.2s",
+  };
 
   return (
     <div
@@ -29,38 +44,31 @@ export default function Sidebar() {
           width: "100%",
           transition: "background 0.2s"
         }}
-        onMouseOver={(e) => e.currentTarget.style.background = "rgba(255,255,255,0.2)"}
-        onMouseOut={(e) => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
       >
         {collapsed ? ">>" : "<<"}
       </button>
 
       <div
+        onClick={() => setPage("dashboard")}
         style={{
-          padding: "12px",
-          cursor: "pointer",
-          borderRadius: "6px",
-          marginBottom: "8px",
-          transition: "background 0.2s"
+          ...itemBaseStyle,
+          background: page === "dashboard" ? "rgba(255,255,255,0.2)" : "transparent",
+          fontWeight: page === "dashboard" ? "700" : "400"
         }}
-        onMouseOver={(e) => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
-        onMouseOut={(e) => e.currentTarget.style.background = "transparent"}
       >
         {!collapsed && "Dashboard"}
       </div>
 
       <div
+        onClick={() => setPage("config")}
         style={{
-          padding: "12px",
-          cursor: "pointer",
-          borderRadius: "6px",
-          transition: "background 0.2s"
+          ...itemBaseStyle,
+          background: page === "config" ? "rgba(255,255,255,0.2)" : "transparent",
+          fontWeight: page === "config" ? "700" : "400"
         }}
-        onMouseOver={(e) => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
-        onMouseOut={(e) => e.currentTarget.style.background = "transparent"}
       >
-        {!collapsed && "Settings"}
+        {!collapsed && "Configuration"}
       </div>
     </div>
   );
-};
+}
