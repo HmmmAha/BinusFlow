@@ -1,0 +1,17 @@
+.layout {
+  display: flex;
+  height: 100vh;
+  background: #ff8f47; /* orange bg */
+}
+
+/* Sidebar width */
+.content {
+  flex: 1;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+/* When sidebar is collapsed */
+.content.collapsed {
+  margin-left: 80px;
+}
