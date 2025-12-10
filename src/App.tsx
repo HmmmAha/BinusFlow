@@ -10,6 +10,15 @@ import ModalDeleteAllTask from "./components/ModalDeleteAllTask";
 import Config from "./components/Config";
 
 export default function App() {
+  const defaultColors: string[] = [
+    "#6366f1",
+    "#ec4899",
+    "#10b981",
+    "#f59e0b",
+    "#8b5cf6",
+    "#06b6d4",
+  ];
+
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showDeleteAllTaskModal, setShowDeleteAllTaskModal] = useState(false);
   const [columns, setColumns] = useState<Column[]>([]);
@@ -17,7 +26,7 @@ export default function App() {
     const saved = localStorage.getItem("colors");
     return saved
       ? JSON.parse(saved)
-      : ["#6366f1", "#ec4899", "#10b981", "#f59e0b", "#8b5cf6", "#06b6d4"];
+      : defaultColors;
   });
 
   const [hasLoaded, setHasLoaded] = useState<boolean>(false);

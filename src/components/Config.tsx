@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BiPlus, BiX } from "react-icons/bi";
 import ModalAddNewColor from "./ModalAddNewColor";
 
@@ -12,15 +12,6 @@ export default function Config({
   colors,
   setColors
 }: Props) {
-  const defaultColors: string[] = [
-    "#6366f1",
-    "#ec4899",
-    "#10b981",
-    "#f59e0b",
-    "#8b5cf6",
-    "#06b6d4",
-  ];
-
   const [showAddNewColorModal, setShowAddNewColorModal] =
     useState<boolean>(false);
 
