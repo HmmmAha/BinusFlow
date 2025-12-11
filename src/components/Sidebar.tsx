@@ -1,14 +1,14 @@
 import { useState } from "react";
 import type { Pages } from "./types";
+import { useLocation, useNavigate } from "react-router-dom";
 
-export default function Sidebar({
-  page,
-  setPage
-}: {
-  page: Pages;
-  setPage: (p: Pages) => void;
-}) {
+export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const isActive = (path: string) => location.pathname === path;
 
   const itemBaseStyle: React.CSSProperties = {
     padding: "12px",
@@ -28,7 +28,7 @@ export default function Sidebar({
         transition: "width 0.3s ease",
         minHeight: "100vh",
         padding: "1rem",
-        boxShadow: "2px 0 10px rgba(0,0,0,0.1)"
+        boxShadow: "2px 0 10px rgba(0,0,0,0.1)",
       }}
     >
       <button
@@ -42,29 +42,33 @@ export default function Sidebar({
           cursor: "pointer",
           marginBottom: "1.5rem",
           width: "100%",
-          transition: "background 0.2s"
+          transition: "background 0.2s",
         }}
       >
         {collapsed ? ">>" : "<<"}
       </button>
 
+      {/* Dashboard */}
       <div
-        onClick={() => setPage("dashboard")}
+        onClick={() => navigate("/")}
         style={{
           ...itemBaseStyle,
-          background: page === "dashboard" ? "rgba(255,255,255,0.2)" : "transparent",
-          fontWeight: page === "dashboard" ? "700" : "400"
+          background: isActive("/") ? "rgba(255,255,255,0.2)" : "transparent",
+          fontWeight: isActive("/") ? "700" : "400",
         }}
       >
         {!collapsed && "Dashboard"}
       </div>
 
+      {/* Config */}
       <div
-        onClick={() => setPage("config")}
+        onClick={() => navigate("/config")}
         style={{
           ...itemBaseStyle,
-          background: page === "config" ? "rgba(255,255,255,0.2)" : "transparent",
-          fontWeight: page === "config" ? "700" : "400"
+          background: isActive("/config")
+            ? "rgba(255,255,255,0.2)"
+            : "transparent",
+          fontWeight: isActive("/config") ? "700" : "400",
         }}
       >
         {!collapsed && "Configuration"}

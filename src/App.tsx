@@ -8,6 +8,7 @@ import ModalAddTask from "./components/ModalAddTask";
 import type { Column, Pages, Task, TaskStatus } from "./components/types";
 import ModalDeleteAllTask from "./components/ModalDeleteAllTask";
 import Config from "./components/Config";
+import { Route, Routes } from "react-router-dom";
 
 export default function App() {
   const defaultColors: string[] = [
@@ -120,7 +121,7 @@ export default function App() {
         overflow: "hidden",
       }}
     >
-      <Sidebar page={page} setPage={setPage} />
+      <Sidebar />
 
       <div
         style={{
@@ -130,23 +131,37 @@ export default function App() {
           height: "100vh",
         }}
       >
-        {page === "dashboard" && (
-          <Toolbar
-            onAddTaskClick={() => setShowCreateModal(true)}
-            onDeleteAllTaskClick={() => setShowDeleteAllTaskModal(true)}
+        {/* ROUTING SECTION */}
+        <Routes>
+          {/* Dashboard Route */}
+          <Route
+            path="/"
+            element={
+              <>
+                <Toolbar
+                  onAddTaskClick={() => setShowCreateModal(true)}
+                  onDeleteAllTaskClick={() =>
+                    setShowDeleteAllTaskModal(true)
+                  }
+                />
+
+                <KanbanBoard
+                  columns={columns}
+                  setColumns={setColumns}
+                  openModal={() => setShowCreateModal(true)}
+                />
+              </>
+            }
           />
-        )}
 
-        {page === "dashboard" && (
-          <KanbanBoard
-            columns={columns}
-            setColumns={setColumns}
-            openModal={() => setShowCreateModal(true)}
+          {/* Config Route */}
+          <Route
+            path="/config"
+            element={<Config colors={colors} setColors={setColors} />}
           />
-        )}
+        </Routes>
 
-        {page === "config" && <Config colors={colors} setColors={setColors} />}
-
+        {/* MODALS (stay global, unaffected by routing) */}
         <ModalAddTask
           show={showCreateModal}
           colorsList={colors}
